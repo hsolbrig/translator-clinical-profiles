@@ -5,15 +5,24 @@ Clinical Profiles! .
 @j6k4m8
 """
 
+# stdlib
+import dateutil.parser as dateparser
+
+# pypi
 import pandas as pd
 import pandas.api.types as ptypes
 import matplotlib.pyplot as plt
 import numpy as np
-import json
-import dateutil.parser as dateparser
 
+# No custom imports
+# --
 
 class Profile:
+    """
+    A parent-class for profile-flavored operations.
+
+    Accepts data from disk or in pd.DataFrame
+    """
 
     def __init__(
             self,
@@ -29,7 +38,6 @@ class Profile:
             json (dict): A dictionary type to infer from
             file (str): A file to read from. Will use file ext. to guess type
         """
-
         if file is not None:
             raise NotImplementedError()
 
@@ -86,7 +94,7 @@ class Profile:
                             "max": _data[k].max()
                         })
                     except Exception as e:
-                        print(e)
+                        # print(e)
                         fields.append({
                             "name": k,
                             "type": "string"
