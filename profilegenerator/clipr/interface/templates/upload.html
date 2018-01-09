@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+    <form action = "http://localhost:5000/uploader" method = "POST"
+         enctype = "multipart/form-data">
+        <table>
+            <tr>
+                <td colspan="2"><input type = "file" name = "file" /></td>
+            </tr>
+            <tr>
+                <td>ID field:</td>
+                <td>
+                    <input type="text" name="idfield">
+                </td>
+                </tr>
+            <tr>
+                <td>Delimiter:</td>
+                <td>
+         <select name="delimeter">
+          <option value="0">Comma (,)</option>
+          <option value="1">Tab</option>
+         </select>
+                </td>
+            </tr>
+            <tr><td colspan="2"><input type = "submit"/></td></tr>
+        </table>
+      </form>
+
+</body>
+</html>
