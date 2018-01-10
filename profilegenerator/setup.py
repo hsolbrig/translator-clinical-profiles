@@ -19,9 +19,7 @@ setup(
     description=("Clinical Profile Generation"),
     license="BSD",
     keywords=[
-        "kindle",
-        "ebook",
-        "download"
+       "metadata"
     ],
     #url="https://github.com/ ... / ... /tarball/" + VERSION,
     packages=['clipr'],
