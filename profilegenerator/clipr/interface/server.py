@@ -10,6 +10,7 @@ import numpy as np
 
 app = Flask(__name__)
 
+_MAX_UNIQ = 20
 
 class Profile:
     """
@@ -68,7 +69,7 @@ class Profile:
                     ]
                 })
             elif typ == "string":
-                if len(_data[k].unique()) < 50:
+                if len(_data[k].unique()) < _MAX_UNIQ:
                     fields.append({
                         "name": k,
                         "options": [{
@@ -100,6 +101,12 @@ class Profile:
 def upload():
     return render_template('upload.html')
 
+def mk_upload_dir():
+    directory = './uploads'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    return directory
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
@@ -107,7 +114,8 @@ def upload_file():
         f = request.files['file']
         idfield = request.form['idfield']
         #f.save(secure_filename(f.filename))
-        filepath = os.path.join('uploads', f.filename)
+        up_dir = mk_upload_dir()
+        filepath = os.path.join(up_dir, f.filename)
         f.save(filepath)
         data = pd.read_csv(filepath, delimiter=delim(request.form['delimeter']))
         profile = Profile(data=data)
