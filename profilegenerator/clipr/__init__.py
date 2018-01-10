@@ -16,7 +16,7 @@ import pandas.api.types as ptypes
 import numpy as np
 
 
-
+_MAX_UNIQ = 20
 
 # No custom imports
 # --
@@ -79,7 +79,7 @@ class Profile:
                     ]
                 })
             elif typ == "string":
-                if len(_data[k].unique()) < 50:
+                if len(_data[k].unique()) < _MAX_UNIQ:
                     fields.append({
                         "name": k,
                         "options": [{
