@@ -109,6 +109,8 @@ def mk_upload_dir():
 
     return directory
 
+file_types_by_delim = { ',': 'CSV', '\t': 'TSV' }
+
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -118,11 +120,14 @@ def upload_file():
         up_dir = mk_upload_dir()
         filepath = os.path.join(up_dir, f.filename)
         f.save(filepath)
-        data = pd.read_csv(filepath, delimiter=delim(request.form['delimeter']))
+        delimiter = delim(request.form['delimeter'])
+        data = pd.read_csv(filepath, delimiter=delimiter)
         profile = Profile(data=data)
         output = profile.generate_profile()
 
-        output.append({'submit-date': datetime.datetime.fromtimestamp(os.path.getctime(filepath)) })
+        print(delimiter)
+        output.append({'submit_date': datetime.datetime.fromtimestamp(os.path.getctime(filepath)) })
+        output.append({'file_format': file_types_by_delim[delimiter] })
         return jsonify(output)
 
 def delim(x):
