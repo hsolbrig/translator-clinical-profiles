@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from flask import Flask, render_template, request, jsonify
 #from werkzeug import secure_filename
@@ -120,6 +121,8 @@ def upload_file():
         data = pd.read_csv(filepath, delimiter=delim(request.form['delimeter']))
         profile = Profile(data=data)
         output = profile.generate_profile()
+
+        output.append({'submit-date': datetime.datetime.fromtimestamp(os.path.getctime(filepath)) })
         return jsonify(output)
 
 def delim(x):
