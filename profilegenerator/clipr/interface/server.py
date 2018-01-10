@@ -1,5 +1,6 @@
 import os
 import datetime
+import dateutil.parser as dateparser
 
 from flask import Flask, render_template, request, jsonify
 #from werkzeug import secure_filename
@@ -92,7 +93,8 @@ class Profile:
                         # print(e)
                         fields.append({
                             "name": k,
-                            "type": "string"
+                            "type": "string",
+                            "is_uniq": _data[k].is_unique
                         })
 
         return [{'columns': fields}]
