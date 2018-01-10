@@ -4,6 +4,7 @@ Clinical Profiles! .
 
 @j6k4m8
 """
+__version__ = "0.1.0"
 
 # stdlib
 import dateutil.parser as dateparser
@@ -15,7 +16,6 @@ import pandas.api.types as ptypes
 import numpy as np
 
 
-__version__ = "0.1.0"
 
 
 # No custom imports
