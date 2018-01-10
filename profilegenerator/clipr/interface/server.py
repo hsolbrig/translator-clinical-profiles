@@ -95,7 +95,7 @@ class Profile:
                             "type": "string"
                         })
 
-        return fields
+        return [{'columns': fields}]
 
 
 @app.route('/upload')
@@ -125,10 +125,13 @@ def upload_file():
         profile = Profile(data=data)
         output = profile.generate_profile()
 
-        print(delimiter)
-        output.append({'submit_date': datetime.datetime.fromtimestamp(os.path.getctime(filepath)) })
-        output.append({'file_format': file_types_by_delim[delimiter] })
-        return jsonify(output)
+        global_metadata = {
+            'filename': f.filename,
+            'submit_date': datetime.datetime.fromtimestamp(os.path.getctime(filepath)),
+            'file_format': file_types_by_delim[delimiter]    
+        }
+
+        return jsonify([global_metadata] + output)
 
 def delim(x):
     return {
